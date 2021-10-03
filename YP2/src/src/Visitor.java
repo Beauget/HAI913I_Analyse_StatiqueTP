@@ -1,4 +1,4 @@
-package step2;
+package src;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,24 +12,26 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 public class Visitor {
 	ArrayList<CompilationUnit> project;
-	ArrayList<MethodDeclarationVisitor> visitorMethodes = new ArrayList<MethodDeclarationVisitor>();
+	ArrayList<String> content;
 	ArrayList<TypeDeclarationVisitor> visitorTypes = new ArrayList<TypeDeclarationVisitor>();
 	ArrayList<AnonymousClassDeclarationVisitor> visitorClassesAnonymes = new ArrayList<AnonymousClassDeclarationVisitor>();
 	ArrayList<VariableDeclarationFragmentVisitor> visitorVariables = new ArrayList<VariableDeclarationFragmentVisitor>();
+	ArrayList<MethodDeclarationVisitor> visitorMethodes = new ArrayList<MethodDeclarationVisitor>();
+
 	ArrayList<PackageDeclarationVisitor> visitorPackages = new ArrayList<PackageDeclarationVisitor>();
 	
-	public Visitor(ArrayList<CompilationUnit> p) {
+	public Visitor(ArrayList<CompilationUnit> p, ArrayList<String> c) {
 		this.project = p;
 		for (int i = 0; i<p.size(); i++)
 		{
 			CompilationUnit parse = p.get(i);
+			this.content = c;
 			
 			visitorTypes.add(new TypeDeclarationVisitor());
 			visitorMethodes.add(new MethodDeclarationVisitor());
 			visitorClassesAnonymes.add(new AnonymousClassDeclarationVisitor());
 			visitorVariables.add(new VariableDeclarationFragmentVisitor());
 			visitorPackages.add(new PackageDeclarationVisitor());
-			
 			
 			parse.accept(visitorTypes.get(i));
 			parse.accept(visitorMethodes.get(i));
@@ -71,5 +73,15 @@ public class Visitor {
 		return this.project;
 	}
 	
+	public ArrayList<String>getContent(){
+		return this.content;
+	}
+	
 	public void print() {}
+	
+	public int countLines(String str){
+		   String[] lines = str.split("\r\n|\r|\n");
+		   return  lines.length;
+		}
 }
+

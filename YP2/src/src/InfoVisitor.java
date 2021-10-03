@@ -1,4 +1,4 @@
-package step2;
+package src;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,8 @@ import org.eclipse.jdt.core.dom.PackageDeclaration;
 
 public class InfoVisitor extends Visitor{
 	
-	public InfoVisitor(ArrayList<CompilationUnit> project) {
-		super(project);
+	public InfoVisitor(ArrayList<CompilationUnit> project,ArrayList<String> c) {
+		super(project,c);
 	} 	
 	public void print() {
 		//Affiche les package
@@ -203,3 +203,4 @@ public class InfoVisitor extends Visitor{
 	}
 	
 }
+
