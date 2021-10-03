@@ -1,13 +1,15 @@
-package src;
+package step2;
+
+import java.util.ArrayList;
 
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
 public class ASTProcessor {
-	CompilationUnit parse;
+	ArrayList<CompilationUnit> project;
 	Visitor visitor;
 	
-	public ASTProcessor(CompilationUnit p,String s) {
-		this.parse = p;
+	public ASTProcessor(ArrayList<CompilationUnit> p,String s) {
+		this.project = p;
 		if(s.equals("InfoVisitor")){
 			visitor = new InfoVisitor(p);
 		}

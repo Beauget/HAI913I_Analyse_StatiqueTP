@@ -130,18 +130,12 @@ public class Parser {
 
 		// read java files
 		final File folder = new File(projectSourcePath);
-		ArrayList<File> javaFiles = listJavaFilesForFolder(folder);
-
 		//
-		for (File fileEntry : javaFiles) {
-			String content = FileUtils.readFileToString(fileEntry);
-			// System.out.println(content);
-
-			CompilationUnit parse = parse(content.toCharArray());
-			ASTProcessor processor = new ASTProcessor(parse, "InfoVisitor");
-			//ASTProcessor processor = new ASTProcessor(parse, "StatVisitor");
-			processor.print();
-		}
+		ArrayList<CompilationUnit> project =  listJavaFilesForProject();
+		//System.out.println(parse.getLength());
+		ASTProcessor processor = new ASTProcessor(project, "InfoVisitor");
+		processor.print();
+		//ASTProcessor processor = new ASTProcessor(parse, "StatVisitor");
 		
 		// TODO : GUI part 
 	
@@ -164,6 +158,24 @@ public class Parser {
 		}
 
 		return javaFiles;
+	}
+	
+		//
+	public static ArrayList<CompilationUnit> listJavaFilesForProject() throws IOException{
+		ArrayList<CompilationUnit> project = new ArrayList<CompilationUnit>();
+		// read java files
+		final File folder = new File(projectSourcePath);
+		ArrayList<File> javaFiles = listJavaFilesForFolder(folder);
+
+		//
+		for (File fileEntry : javaFiles) {
+			String content = FileUtils.readFileToString(fileEntry);
+			// System.out.println(content);
+
+			CompilationUnit parse = parse(content.toCharArray());
+			project.add(parse);
+		}
+		return project;
 	}
 
 	// create AST
