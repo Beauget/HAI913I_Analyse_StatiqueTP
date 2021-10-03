@@ -63,57 +63,57 @@ public class Parser {
 		
 		while(cmd != 0) {
 			System.out.println("---- Bienvenue dans notre menu pour obtenir quelques informations sur notre AST ----");
-			System.out.println("Veuillez choisir un numéro de question pour obtenir le résultat");
+			System.out.println("Veuillez choisir un numï¿½ro de question pour obtenir le rï¿½sultat");
 			System.out.println("1 - Toutes les questions sur le terminal" );
-			System.out.println("2 - Merci de votre visite, bonne journée !");
-			System.out.println("3 - Nombre de classes de l’application");
-			System.out.println("4 - Nombre de lignes de code de l’application");
-			System.out.println("5 - Nombre total de méthodes de l'application");
+			System.out.println("2 - Merci de votre visite, bonne journï¿½e !");
+			System.out.println("3 - Nombre de classes de lï¿½application");
+			System.out.println("4 - Nombre de lignes de code de lï¿½application");
+			System.out.println("5 - Nombre total de mï¿½thodes de l'application");
 			System.out.println("6 - Nombre total de packages de l'application");
-			System.out.println("7 - Nombre moyen de méthodes par classe");
-			System.out.println("8 - Nombre moyen de lignes de code par méthode");
+			System.out.println("7 - Nombre moyen de mï¿½thodes par classe");
+			System.out.println("8 - Nombre moyen de lignes de code par mï¿½thode");
 			System.out.println("9 - Nombre moyen d'attributs par classe");
-			System.out.println("10 - Les 10% des classes qui possèdent le plus grand nombre de méthodes.");
-			System.out.println("11 - Les 10% des classes qui possèdent le plus grand nombre d'attributs");
-			System.out.println("12 - Les classes qui font partie en même temps des deux catégories précédentes");
-			System.out.println("13 - Les 10% des méthodes qui possèdent le plus grand nombre de lignes de code (par classe)");
-			System.out.println("14 - Le nombre	maximal	de paramètres par rapport à toutes les méthodes	de l’application.");
+			System.out.println("10 - Les 10% des classes qui possï¿½dent le plus grand nombre de mï¿½thodes.");
+			System.out.println("11 - Les 10% des classes qui possï¿½dent le plus grand nombre d'attributs");
+			System.out.println("12 - Les classes qui font partie en mï¿½me temps des deux catï¿½gories prï¿½cï¿½dentes");
+			System.out.println("13 - Les 10% des mï¿½thodes qui possï¿½dent le plus grand nombre de lignes de code (par classe)");
+			System.out.println("14 - Le nombre	maximal	de paramï¿½tres par rapport ï¿½ toutes les mï¿½thodes	de lï¿½application.");
 			System.out.println("15 - Version graphique");
 			
 			
 			cmd = sc.nextInt();
 			switch(cmd) {
 			
-				case 0 : System.out.println("Merci de votre visite, bonne journée !");
+				case 0 : System.out.println("Merci de votre visite, bonne journï¿½e !");
 				break;
-				case 1 : System.out.println("Nombre	de classes de l’application");
+				case 1 : System.out.println("Nombre	de classes de lï¿½application");
 				break;
-				case 3 : System.out.println("Nombre	de lignes de code de l’application");
+				case 3 : System.out.println("Nombre	de lignes de code de lï¿½application");
 				break;
-				case 4 : System.out.println("Nombre total de méthodes de l'application");
+				case 4 : System.out.println("Nombre total de mï¿½thodes de l'application");
 				break;
 				case 5 : System.out.println("Nombre total de packages de l'application");
 				break;
-				case 6 : System.out.println("Nombre moyen de méthodes par classe");
+				case 6 : System.out.println("Nombre moyen de mï¿½thodes par classe");
 				break;
-				case 7 : System.out.println("Nombre moyen de lignes de code par méthode");
+				case 7 : System.out.println("Nombre moyen de lignes de code par mï¿½thode");
 				break;
 				case 8 : System.out.println("Nombre moyen d'attributs par classe");
 				break;
-				case 9 : System.out.println("Les 10% des classes qui possèdent le plus grand nombre de méthodes");
+				case 9 : System.out.println("Les 10% des classes qui possï¿½dent le plus grand nombre de mï¿½thodes");
 				break;
-				case 10 : System.out.println("Les 10% des classes qui possèdent le plus grand nombre d'attributs");
+				case 10 : System.out.println("Les 10% des classes qui possï¿½dent le plus grand nombre d'attributs");
 				break;
-				case 11 : System.out.println("Les classes qui font partie en même temps des deux catégories précédentes");
+				case 11 : System.out.println("Les classes qui font partie en mï¿½me temps des deux catï¿½gories prï¿½cï¿½dentes");
 				break;
-				case 12 : System.out.println("Les 10% des méthodes qui possèdent le plus grand nombre de lignes de code (par classe)");
+				case 12 : System.out.println("Les 10% des mï¿½thodes qui possï¿½dent le plus grand nombre de lignes de code (par classe)");
 				break;
-				case 13 : System.out.println("Le nombre	maximal	de paramètres par rapport à toutes les méthodes	de l’application.");
+				case 13 : System.out.println("Le nombre	maximal	de paramï¿½tres par rapport ï¿½ toutes les mï¿½thodes	de lï¿½application.");
 				break;
-				case 14 : System.out.println("Toutes les réponses précédentes");
+				case 14 : System.out.println("Toutes les rï¿½ponses prï¿½cï¿½dentes");
 				break;
 				case 15 :
-				System.out.println("La fenêtre va s'ouvrir...");
+				System.out.println("La fenï¿½tre va s'ouvrir...");
 				gestionGUI();
 				int i = 1;
 				System.out.println("Appuyez sur une 0 pour revenir au menu");

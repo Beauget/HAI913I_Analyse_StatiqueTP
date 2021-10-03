@@ -13,17 +13,17 @@ public class Fenetre extends JFrame {
 	// Bouton pour les questions
 	private JPanel pan = new JPanel();
 	private JButton bouton1 = new JButton("Nombre de classe");
-	private JButton bouton2 = new JButton("Nombre	de lignes de code de l’application");
-	private JButton bouton3 = new JButton("Nombre total de méthodes de l'application");
+	private JButton bouton2 = new JButton("Nombre	de lignes de code de lï¿½application");
+	private JButton bouton3 = new JButton("Nombre total de mï¿½thodes de l'application");
 	private JButton bouton4 = new JButton("Nombre total de packages de l'application");
-	private JButton bouton5 = new JButton("Nombre moyen de méthodes par classe");
-	private JButton bouton6 = new JButton("Nombre moyen de lignes de code par méthode");
+	private JButton bouton5 = new JButton("Nombre moyen de mï¿½thodes par classe");
+	private JButton bouton6 = new JButton("Nombre moyen de lignes de code par mï¿½thode");
 	private JButton bouton7 = new JButton("Nombre moyen d'attributs par classe");
-	private JButton bouton8 = new JButton("Les 10% des classes qui possèdent le plus grand nombre de méthodes");
-	private JButton bouton9 = new JButton("Les 10% des classes qui possèdent le plus grand nombre d'attributs");
-	private JButton bouton10 = new JButton("Les classes qui font partie en même temps des deux catégories précédentes");
-	private JButton bouton11 = new JButton("Les 10% des méthodes qui possèdent le plus grand nombre de lignes de code (par classe)");
-	private JButton bouton12 = new JButton("Le nombre	maximal	de paramètres par rapport à toutes les méthodes	de l’application.");
+	private JButton bouton8 = new JButton("Les 10% des classes qui possï¿½dent le plus grand nombre de mï¿½thodes");
+	private JButton bouton9 = new JButton("Les 10% des classes qui possï¿½dent le plus grand nombre d'attributs");
+	private JButton bouton10 = new JButton("Les classes qui font partie en mï¿½me temps des deux catï¿½gories prï¿½cï¿½dentes");
+	private JButton bouton11 = new JButton("Les 10% des mï¿½thodes qui possï¿½dent le plus grand nombre de lignes de code (par classe)");
+	private JButton bouton12 = new JButton("Le nombre	maximal	de paramï¿½tres par rapport ï¿½ toutes les mï¿½thodes	de lï¿½application.");
 	
 
 	public Fenetre() {
