@@ -28,7 +28,7 @@ public class StatVisitor extends Visitor {
 		numberOfClass();
 		
 		//EXERCICE 2
-		System.out.println("Nombre de lignes de code de l’application.");
+		System.out.println("Nombre de ligne(s) de code de l’application : "+ numberOfLines());
 		
 		//EXERCICE 3
 		numberOfMethod();
@@ -36,10 +36,11 @@ public class StatVisitor extends Visitor {
 		numberOfPackage();
 		
 		//EXERCICE 5
-		System.out.println("Nombre de ligne(s) dans l'application: "+ numberOfLines());
-		
-		//EXERCICE 6
 		averageOfMethod();
+		//System.out.println("Nombre de ligne(s) dans l'application: "+ numberOfLines());
+		
+		//EXERCICE 6 Nombre moyen de lignes de code par méthode.
+		averageLineOfMethod();
 		
 		//EXERCICE 7
 		averageOfVariableByClass();
@@ -133,7 +134,26 @@ public class StatVisitor extends Visitor {
 	}	
 	
 	//EXERCICE 6 Nombre moyen de lignes de code par méthode.
-	//TODO
+	public void averageLineOfMethod() {
+		int nClass = 0;
+		int nLigneMethodTotal = 0;
+		
+		for(int i=0; i<getProject().size(); i++) {
+			for (TypeDeclaration type : this.getTypes(i)) {
+				nClass++;
+				MethodDeclarationVisitor visitor2 = new MethodDeclarationVisitor();
+				type.accept(visitor2);
+				
+				int nLigneMethod = 0;
+				for(MethodDeclaration method : visitor2.getMethods()){
+					nLigneMethod = countLines(method.toString());
+					//System.out.println("Méthode "+ method.getName() + "Nombre de lignes " + nLigneMethod);
+					nLigneMethodTotal = nLigneMethod + nLigneMethodTotal;
+				}				
+			}
+		}
+		System.out.println("Nombre moyen de lignes de code par méthode "+ nLigneMethodTotal+"/"+nClass);
+	}
 	
 	
 	//EXERCICE 7 Nombre moyen d’attributs par classe.
