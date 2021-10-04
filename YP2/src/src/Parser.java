@@ -28,25 +28,16 @@ import javax.swing.JFrame;
 
 public class Parser {
 	
-	static void gestionGUI() {
+	static void gestionGUI(ASTProcessor visit) {
 		
-		 Fenetre guiVisitor = new Fenetre();
-		 
-		 
-		 guiVisitor.getbouton1().addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				// ICI POUR LANCER UN TRUC VIA LE BOUTON
-				System.out.println("OUI BOUTON");
-			}
-		 });
+		 Fenetre guiVisitor = new Fenetre(visit);
+
 	}
 	
-	//public static final String projectPath = "C:\\Users\\beaug\\Desktop\\M2\\M2\\Evo-restru\\TP2AST\\HAI913I_Analyse_StatiqueTP\\File_To_Analyse";
-	//public static final String projectSourcePath = projectPath;
-	public static final String projectPath = "/home/hayaat/Desktop/Master/M1/Java/TP4/";
-	public static final String projectSourcePath = projectPath + "/src/";
+	public static final String projectPath = "/home/dnspc/Desktop/M2/Evo-restru/TP2AST/HAI913I_Analyse_StatiqueTP/File_To_Analyse/";
+	public static final String projectSourcePath = projectPath;
+	//public static final String projectPath = "/home/hayaat/Desktop/Master/M1/Java/TP4/";
+	//public static final String projectSourcePath = projectPath + "/src/";
 	public static final String jrePath;
 	
 	static {
@@ -54,6 +45,19 @@ public class Parser {
 	}
 
 	public static void main(String[] args) throws IOException {
+		
+		// read java files
+		ArrayList<String> content = listJavaFilesForProject();
+		ArrayList<CompilationUnit> project = new ArrayList<CompilationUnit>();
+		
+		for(int i=0; i<content.size();i++) {
+			CompilationUnit parse = parse(content.get(i).toCharArray());
+			project.add(parse);
+		}
+		//System.out.println(project.toString());
+		//ASTProcessor processor = new ASTProcessor(project, "InfoVisitor");
+		ASTProcessor processor = new ASTProcessor(project,content);	
+		System.out.println(processor.exercice1());
 		
 		// MENU
 		int cmd = 100;
@@ -64,7 +68,9 @@ public class Parser {
 		while(cmd != 0) {
 			System.out.println("---- Bienvenue dans notre menu pour obtenir quelques informations sur notre AST ----");
 			System.out.println("Veuillez choisir un num�ro de question pour obtenir le r�sultat");
-			System.out.println("1 - Toutes les questions sur le terminal" );
+			
+			
+			System.out.println("1 - Nombre de classes de l�applicationl" );
 			System.out.println("2 - Merci de votre visite, bonne journ�e !");
 			System.out.println("3 - Nombre de classes de l�application");
 			System.out.println("4 - Nombre de lignes de code de l�application");
@@ -86,7 +92,8 @@ public class Parser {
 			
 				case 0 : System.out.println("Merci de votre visite, bonne journ�e !");
 				break;
-				case 1 : System.out.println("Nombre	de classes de l�application");
+				case 1 : System.out.println(processor.exercice1());
+				System.out.println(" ");
 				break;
 				case 3 : System.out.println("Nombre	de lignes de code de l�application");
 				break;
@@ -114,7 +121,7 @@ public class Parser {
 				break;
 				case 15 :
 				System.out.println("La fen�tre va s'ouvrir...");
-				gestionGUI();
+				gestionGUI(processor);
 				int i = 1;
 				System.out.println("Appuyez sur une 0 pour revenir au menu");
 				i = sc.nextInt();
@@ -128,18 +135,7 @@ public class Parser {
 		
 		// END MENU
 
-		// read java files
-		ArrayList<String> content = listJavaFilesForProject();
-		ArrayList<CompilationUnit> project = new ArrayList<CompilationUnit>();
-		
-		for(int i=0; i<content.size();i++) {
-			CompilationUnit parse = parse(content.get(i).toCharArray());
-			project.add(parse);
-		}
-		//System.out.println(project.toString());
-		//ASTProcessor processor = new ASTProcessor(project, "InfoVisitor");
-		ASTProcessor processor = new ASTProcessor(project,content);	
-		System.out.println(processor.exercice1());
+	
 		
 		// TODO : GUI part 
 	

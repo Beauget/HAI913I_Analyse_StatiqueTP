@@ -139,6 +139,7 @@ public class StatVisitor extends Visitor {
 	public String averageOfVariableByClass() {
 		int nClass = 0;
 		int nVar = 0;
+		float res = 0;
 		for(int i=0; i<getProject().size(); i++) {
 			for (TypeDeclaration type : this.getTypes(i)) {
 				nClass++;
@@ -149,7 +150,8 @@ public class StatVisitor extends Visitor {
 				}
 			}
 		}
-		return ("Nombre moyen d'attributs par classe : " + nVar+"/"+nClass);
+		res = (float)nVar/(float)nClass;
+		return ("Nombre moyen d'attributs par classe : " + nVar+"/"+nClass + " : " + res);
 	}
 	
 	
