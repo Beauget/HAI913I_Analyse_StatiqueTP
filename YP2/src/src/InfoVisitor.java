@@ -1,7 +1,10 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
@@ -21,34 +24,25 @@ public class InfoVisitor extends Visitor{
 		super(project,c);
 	} 	
 	public void print() {
-		//Affiche les package
-		//printPackageInfo();
+
+		//EXERCICE 8
+		System.out.println("Les 10% des classes qui possèdent le plus grand nombre de méthodes.");
+		System.out.println(top10Method().toString());
 		
-		//Affiche les classes 
-		printTypeDeclarationInfo();
+		//EXERCICE 9
+		System.out.println("Les 10% des classes qui possèdent le plus grand nombre d’attributs");
+		System.out.println(top10Var().toString());
 		
-		// Affiche les methodes
-		//printMethodInfo();
+		//EXERCICE 10
+		System.out.println("Les classes qui font partie en même temps des deux");
+		System.out.println(top10MethodAndVar().toString());
 		
-		//Affiche les Variables
-		//printVariableInfo();
+		//EXERCICE 11
+		System.out.println("Les classes qui possèdent plus de X méthodes");
+		System.out.println(classWithXMethod(4).toString());
 		
-		//Affiche les methodes appeler au sein des methodes
-		//printMethodInvocationInfo();
-		
-		//Affiche les classes ANonymes
-		//printAnonymousClassInfo();
-		
-		
-		//Affiche les methodes dans chaque classe
-		//printMethodIntoTypeInfo();
-		
-		//Affiche les variables dans chaque classe 
-		//printVariableIntoTypeInfo();
-		
-		//Etrange
-		//System.out.println(parse.getLength());
-		//printCodeLength();
+		//EXERCICE 12
+		System.out.println("Les 10% des méthodes qui possèdent le plus grand nombre de lignes de code (par classe).");
 
 	}
 	
@@ -59,147 +53,119 @@ public class InfoVisitor extends Visitor{
 		}
 		System.out.println("Nombre de caractères : "+ i);
 	}
+
 	
-	//navigate cherche les TypesDeclarations/ donc les classes définis au plus haut
-	//par recurssion regarde les classes à l'interieur
-	
-	public void printTypeDeclarationInfo() {
-		for(int i=0; i<getProject().size(); i++) {
-			int j = 0;
-			for (TypeDeclaration type : this.getTypes(i)) {
-				System.out.println("Type name : "
-						+ type.getName() 
-						+ "  estInterface : "
-						+ type.isInterface());
-				j++;
-				//System.out.println("début : " + type.getStartPosition());
-				//System.out.println("Longeur: " + type.getLength());
-			}
-			if(j>0) {
-			System.out.println("Nombre de classe(s) dans le fichier : "
-					+ j);
-			}
-		}
-	}
-	
-	// navigate package
-	public void printPackageInfo() {
-		int j =0;
-		for(int i=0; i<getProject().size(); i++) {
-			for (PackageDeclaration pack : this.getPackages(i)) {
-				System.out.println("Packages name: " + pack.getName());
-				j++;
-			}
-		}
-		System.out.println("Nombre total de package : " + j);
-	}
-	// navigate method inside class
-	public void printMethodIntoTypeInfo() {
+	//EXERCICE 8 Les 10% des classes qui possèdent le plus grand nombre de methodes.
+	//Hashmap key : class value : nombre de methods
+	public ArrayList<Pair>  nbMethodInType(){
+		Map<String, Integer> mapClass = new HashMap<String, Integer>();
+		ArrayList<Pair> liste = new ArrayList<Pair>();
+
 		for(int i=0; i<getProject().size(); i++) {
 			for (TypeDeclaration type : this.getTypes(i)) {
-				System.out.println("\\\\\\\\\\\\ CLASSE : " + type.getName()+"\\\\\\\\\\\\");
-				int j = 0;
+				int nMethod = 0;
 				MethodDeclarationVisitor visitor2 = new MethodDeclarationVisitor();
 				type.accept(visitor2);
 				for(MethodDeclaration method : visitor2.getMethods()){
-					System.out.println("Method name: " + method.getName()
-					+ " Return type: " + method.getReturnType2()
-					+" Parameter : " + method.parameters().size());	
-					j++;
+					nMethod++;
 				}
-				System.out.println("Nombre de methode(s) : " + j);
+				mapClass.put(type.getName().toString(),nMethod);
+				liste.add(new Pair(type.getName().toString(),nMethod));
 			}
 		}
+		return liste;
 	}
 	
-	// navigate method inside class
-	public void printVariableIntoTypeInfo() {
+	
+	public ArrayList<String>  top10Method(){
+		int nb = Math.floorDiv(project.size(),10);
+		ArrayList<String> rslt= new ArrayList<String>();
+		if(nb==0)
+			nb=1;
+		ArrayList<Pair> listeM = nbMethodInType();
+		
+		//TRIE CROISSANT
+		Collections.sort(listeM);
+		
+		//Parcours decroissant
+		for(int i=listeM.size()-1; i>(listeM.size()-nb-1);i--) {
+			rslt.add(listeM.get(i).getKey());
+		}
+		return rslt;
+	}
+	
+	
+	
+	//EXERCICE 9 Les 10% des classes qui possèdent le plus grand nombre d’attributs
+	//Hashmap key : class value : nombre de variables
+	
+	public ArrayList<Pair>  nbVarInType(){
+		Map<String, Integer> mapClass = new HashMap<String, Integer>();
+		ArrayList<Pair> liste = new ArrayList<Pair>();
+
 		for(int i=0; i<getProject().size(); i++) {
 			for (TypeDeclaration type : this.getTypes(i)) {
-				System.out.println("\\\\\\\\\\\\ CLASSE : " + type.getName()+"\\\\\\\\\\\\");
-				int j = 0;
+				int nVar = 0;
 				VariableDeclarationFragmentVisitor visitor2 = new VariableDeclarationFragmentVisitor();
 				type.accept(visitor2);
-				for(VariableDeclarationFragment variable : visitor2.getVariables()){
-					System.out.println("Variable name: " + variable.getName());	
-					j++;
+				for(VariableDeclarationFragment var : visitor2.getVariables()){
+					nVar++;
 				}
-				System.out.println("Nombre de variable(s) : " + j);
+				mapClass.put(type.getName().toString(),nVar);
+				liste.add(new Pair(type.getName().toString(),nVar));
 			}
 		}
+		return liste;
 	}
 	
-	
+	public ArrayList<String> top10Var(){
+		int nb = Math.floorDiv(project.size(),10);
+		ArrayList<String> rslt= new ArrayList<String>();
+		if(nb==0)
+			nb=1;
+		ArrayList<Pair> listeV = nbVarInType();
+		
+		//TRIE CROISSANT
+		Collections.sort(listeV);
 
-	
-	// navigate method information
-	public void printMethodInfo() {
-		for(int i=0; i<getProject().size(); i++) {
-			for (MethodDeclaration method : this.getMethods(i)) {
-				System.out.println("Method name: " + method.getName()
-						+ " Return type: " + method.getReturnType2()
-						+" Parameter : " + method.parameters().size());
-			}
+		//Parcours decroissant
+		for(int i=listeV.size()-1; i>(listeV.size()-nb-1);i--) {
+			rslt.add(listeV.get(i).getKey());
 		}
+		return rslt;
 	}
 	
-	// navigate recherche les classes anonymes dans les methodes
-	public void printAnonymousClassInfo() {
-		for(int i=0; i<getProject().size(); i++) {
-			for (MethodDeclaration method : this.getMethods(i)) {
-				AnonymousClassDeclarationVisitor visitor2 = new AnonymousClassDeclarationVisitor();
-				method.accept(visitor2);
-				for(AnonymousClassDeclaration anonymousClassDeclaration : visitor2.getAnonymous()){
-					System.out.println("AnonymousClass: "
-							+ anonymousClassDeclaration.toString());				
-				}
+	
+	//EXERCICE 10 Les classes qui font partie en même temps des deux catégories précédentes.
+	//TODO
+	public ArrayList<String> top10MethodAndVar(){
+		ArrayList<String> rslt= new ArrayList<String>();
+		
+		ArrayList<String> listeM = top10Method();
+		ArrayList<String> listeV = top10Var();
+		
+		for(int i=0 ;i<listeM.size();i++) {
+			for(int j = 0; j<listeV.size();j++){
+				if(listeM.get(i).equals(listeV.get(j)))
+						rslt.add(listeM.get(i));
 			}
-		}
+		}	
+		return rslt;
 	}
 	
-	// navigate method invocations inside method
-	public void printMethodInvocationInfo() {
-		for(int i=0; i<getProject().size(); i++) {
-			for (MethodDeclaration method : this.getMethods(i)) {
-				MethodInvocationVisitor visitor2 = new MethodInvocationVisitor();
-				method.accept(visitor2);
 	
-				for (MethodInvocation methodInvocation : visitor2.getMethods()) {
-					System.out.println("method " + method.getName() + " invoc method "
-							+ methodInvocation.getName());
-				}
+	
+	//EXERCICE 11 Les classes qui possèdent plus de X méthodes (la valeur de X est donnée).
+	public ArrayList<String> classWithXMethod(int x){
+		ArrayList<String> rslt= new ArrayList<String>();		
+		ArrayList<Pair> listeM = nbMethodInType();
+		
+		for(int i=0 ; i<listeM.size(); i++) {
+			if(listeM.get(i).getValue()==x) {
+				rslt.add(listeM.get(i).getKey());
 			}
 		}
-	}
-	
-	// navigate variables inside method
-	public void printVariableInsideMethodInfo() {
-		for(int i=0; i<getProject().size(); i++) {
-			for (MethodDeclaration method : this.getMethods(i)) {
-				VariableDeclarationFragmentVisitor visitor2 = new VariableDeclarationFragmentVisitor();
-				method.accept(visitor2);
-	
-				for (VariableDeclarationFragment variableDeclarationFragment : visitor2
-						.getVariables()) {
-					System.out.println("variable name: "
-							+ variableDeclarationFragment.getName()
-							+ " variable Initializer: "
-							+ variableDeclarationFragment.getInitializer());
-					}
-				}	
-			}
-		}
-	
-	// navigate variables 
-	public void printVariableInfo() {
-		for(int i=0; i<getProject().size(); i++) {
-			for (VariableDeclarationFragment variableDeclarationFragment : this.getVariables(i)) {
-				System.out.println("variable name: "
-						+ variableDeclarationFragment.getName()
-						+ " variable Initializer: "
-						+ variableDeclarationFragment.getInitializer());
-			}
-		}
+		return rslt;
 	}
 	
 }

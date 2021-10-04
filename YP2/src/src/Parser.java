@@ -43,10 +43,10 @@ public class Parser {
 		 });
 	}
 	
-	public static final String projectPath = "C:\\Users\\beaug\\Desktop\\M2\\M2\\Evo-restru\\TP2AST\\HAI913I_Analyse_StatiqueTP\\File_To_Analyse";
-	public static final String projectSourcePath = projectPath;
-	//public static final String projectPath = "/home/hayaat/Desktop/Master/M1/Java/TP4/";
-	//public static final String projectSourcePath = projectPath + "/src/";
+	//public static final String projectPath = "C:\\Users\\beaug\\Desktop\\M2\\M2\\Evo-restru\\TP2AST\\HAI913I_Analyse_StatiqueTP\\File_To_Analyse";
+	//public static final String projectSourcePath = projectPath;
+	public static final String projectPath = "/home/hayaat/Desktop/Master/M1/Java/TP4/";
+	public static final String projectSourcePath = projectPath + "/src/";
 	public static final String jrePath;
 	
 	static {
@@ -138,8 +138,8 @@ public class Parser {
 		}
 		//System.out.println(project.toString());
 		//ASTProcessor processor = new ASTProcessor(project, "InfoVisitor");
-		ASTProcessor processor = new ASTProcessor(project, "StatVisitor",content);	
-		processor.print();
+		ASTProcessor processor = new ASTProcessor(project,content);	
+		System.out.println(processor.exercice1());
 		
 		// TODO : GUI part 
 	

@@ -37,32 +37,12 @@ public class StatVisitor extends Visitor {
 		
 		//EXERCICE 5
 		averageOfMethod();
-		//System.out.println("Nombre de ligne(s) dans l'application: "+ numberOfLines());
-		
+
 		//EXERCICE 6 Nombre moyen de lignes de code par méthode.
 		averageLineOfMethod();
 		
 		//EXERCICE 7
 		averageOfVariableByClass();
-		
-		//EXERCICE 8
-		System.out.println("Les 10% des classes qui possèdent le plus grand nombre de méthodes.");
-		System.out.println(top10Method().toString());
-		
-		//EXERCICE 9
-		System.out.println("Les 10% des classes qui possèdent le plus grand nombre d’attributs");
-		System.out.println(top10Var().toString());
-		
-		//EXERCICE 10
-		System.out.println("Les classes qui font partie en même temps des deux");
-		System.out.println(top10MethodAndVar().toString());
-		
-		//EXERCICE 11
-		System.out.println("Les classes qui possèdent plus de X méthodes");
-		System.out.println(classWithXMethod(4).toString());
-		
-		//EXERCICE 12
-		System.out.println("Les 10% des méthodes qui possèdent le plus grand nombre de lignes de code (par classe).");
 		
 		
 		//EXERCICE 13
@@ -70,54 +50,52 @@ public class StatVisitor extends Visitor {
 		
 	}
 	//EXERCICE 1 Nombre de classes de l’application.
-	public void numberOfClass(){
+	public String numberOfClass(){
 		int j = 0;
 		for(int i=0; i<getProject().size(); i++) {
 			for (TypeDeclaration type : this.getTypes(i)) {
 				j++;
 			}
 		}
-		System.out.println("Nombre de classe(s) dans l'application : "
+		return("Nombre de classe(s) dans l'application : "
 				+ j);
 	}
 	
 	//EXERCICE 2 Nombre de lignes de code de l’application.
-	public int numberOfLines() {
-		int rslt = 0;
-		
+	public String numberOfLines() {
+		int rslt = 0;		
 		for(String s : this.getContent()){
 			rslt+= countLines(s);
 		}		
-		return rslt;
+		return ("Nombre de ligne(s) de code de l’application :"+rslt);
 	}
 	
 	//EXERCICE 3 Nombre total de méthodes de l’application.
-	public void numberOfMethod(){
+	public String numberOfMethod(){
 		int j = 0;
 		for(int i=0; i<getProject().size(); i++) {
 			for (MethodDeclaration method : this.getMethods(i)) {
 				j++;
 			}
 		}
-		System.out.println("Nombre de méthode(s) dans l'application : "
-				+ j);
+		return("Nombre de méthode(s) dans l'application : "+ j);
 	}
 	
 	//EXERCICE 4 Nombre total de packages de l’application.
 	
-	public void numberOfPackage() {
+	public String numberOfPackage() {
 		int j =0;
 		for(int i=0; i<getProject().size(); i++) {
 			for (PackageDeclaration pack : this.getPackages(i)) {
 				j++;
 			}
 		}
-		System.out.println("Nombre total de package : " + j);
+		return("Nombre total de package : " + j);
 	}
 	
 	//EXERCICE 5 Nombre moyen de méthodes par classe.
 	
-	public void averageOfMethod() {
+	public String averageOfMethod() {
 		int nClass = 0;
 		int nMethod = 0;
 		for(int i=0; i<getProject().size(); i++) {
@@ -130,11 +108,11 @@ public class StatVisitor extends Visitor {
 				}
 			}
 		}
-		System.out.println("Nombre moyen de methodes par classe : " + nMethod+"/"+nClass);
+		return("Nombre moyen de methodes par classe : " + nMethod+"/"+nClass);
 	}	
 	
 	//EXERCICE 6 Nombre moyen de lignes de code par méthode.
-	public void averageLineOfMethod() {
+	public String averageLineOfMethod() {
 		int nClass = 0;
 		int nLigneMethodTotal = 0;
 		
@@ -152,13 +130,13 @@ public class StatVisitor extends Visitor {
 				}				
 			}
 		}
-		System.out.println("Nombre moyen de lignes de code par méthode "+ nLigneMethodTotal+"/"+nClass);
+		return("Nombre moyen de lignes de code par méthode "+ nLigneMethodTotal+"/"+nClass);
 	}
 	
 	
 	//EXERCICE 7 Nombre moyen d’attributs par classe.
 	
-	public void averageOfVariableByClass() {
+	public String averageOfVariableByClass() {
 		int nClass = 0;
 		int nVar = 0;
 		for(int i=0; i<getProject().size(); i++) {
@@ -171,122 +149,8 @@ public class StatVisitor extends Visitor {
 				}
 			}
 		}
-		System.out.println("Nombre moyen d'attributs par classe : " + nVar+"/"+nClass);
+		return ("Nombre moyen d'attributs par classe : " + nVar+"/"+nClass);
 	}
-	
-	//EXERCICE 8 Les 10% des classes qui possèdent le plus grand nombre de methodes.
-	//Hashmap key : class value : nombre de methods
-	public ArrayList<Pair>  nbMethodInType(){
-		Map<String, Integer> mapClass = new HashMap<String, Integer>();
-		ArrayList<Pair> liste = new ArrayList<Pair>();
-
-		for(int i=0; i<getProject().size(); i++) {
-			for (TypeDeclaration type : this.getTypes(i)) {
-				int nMethod = 0;
-				MethodDeclarationVisitor visitor2 = new MethodDeclarationVisitor();
-				type.accept(visitor2);
-				for(MethodDeclaration method : visitor2.getMethods()){
-					nMethod++;
-				}
-				mapClass.put(type.getName().toString(),nMethod);
-				liste.add(new Pair(type.getName().toString(),nMethod));
-			}
-		}
-		return liste;
-	}
-	
-	
-	public ArrayList<String>  top10Method(){
-		int nb = Math.floorDiv(project.size(),10);
-		ArrayList<String> rslt= new ArrayList<String>();
-		if(nb==0)
-			nb=1;
-		ArrayList<Pair> listeM = nbMethodInType();
-		
-		//TRIE CROISSANT
-		Collections.sort(listeM);
-		
-		//Parcours decroissant
-		for(int i=listeM.size()-1; i>(listeM.size()-nb-1);i--) {
-			rslt.add(listeM.get(i).getKey());
-		}
-		return rslt;
-	}
-	
-	
-	
-	//EXERCICE 9 Les 10% des classes qui possèdent le plus grand nombre d’attributs
-	//Hashmap key : class value : nombre de variables
-	
-	public ArrayList<Pair>  nbVarInType(){
-		Map<String, Integer> mapClass = new HashMap<String, Integer>();
-		ArrayList<Pair> liste = new ArrayList<Pair>();
-
-		for(int i=0; i<getProject().size(); i++) {
-			for (TypeDeclaration type : this.getTypes(i)) {
-				int nVar = 0;
-				VariableDeclarationFragmentVisitor visitor2 = new VariableDeclarationFragmentVisitor();
-				type.accept(visitor2);
-				for(VariableDeclarationFragment var : visitor2.getVariables()){
-					nVar++;
-				}
-				mapClass.put(type.getName().toString(),nVar);
-				liste.add(new Pair(type.getName().toString(),nVar));
-			}
-		}
-		return liste;
-	}
-	
-	public ArrayList<String> top10Var(){
-		int nb = Math.floorDiv(project.size(),10);
-		ArrayList<String> rslt= new ArrayList<String>();
-		if(nb==0)
-			nb=1;
-		ArrayList<Pair> listeV = nbVarInType();
-		
-		//TRIE CROISSANT
-		Collections.sort(listeV);
-
-		//Parcours decroissant
-		for(int i=listeV.size()-1; i>(listeV.size()-nb-1);i--) {
-			rslt.add(listeV.get(i).getKey());
-		}
-		return rslt;
-	}
-	
-	
-	//EXERCICE 10 Les classes qui font partie en même temps des deux catégories précédentes.
-	//TODO
-	public ArrayList<String> top10MethodAndVar(){
-		ArrayList<String> rslt= new ArrayList<String>();
-		
-		ArrayList<String> listeM = top10Method();
-		ArrayList<String> listeV = top10Var();
-		
-		for(int i=0 ;i<listeM.size();i++) {
-			for(int j = 0; j<listeV.size();j++){
-				if(listeM.get(i).equals(listeV.get(j)))
-						rslt.add(listeM.get(i));
-			}
-		}	
-		return rslt;
-	}
-	
-	
-	
-	//EXERCICE 11 Les classes qui possèdent plus de X méthodes (la valeur de X est donnée).
-	public ArrayList<String> classWithXMethod(int x){
-		ArrayList<String> rslt= new ArrayList<String>();		
-		ArrayList<Pair> listeM = nbMethodInType();
-		
-		for(int i=0 ; i<listeM.size(); i++) {
-			if(listeM.get(i).getValue()==x) {
-				rslt.add(listeM.get(i).getKey());
-			}
-		}
-		return rslt;
-	}
-	
 	
 	
 	//EXERCICE 12 Les 10% des méthodes qui possèdent le plus grand nombre de lignes de code (par classe).
