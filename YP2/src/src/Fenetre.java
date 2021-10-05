@@ -2,6 +2,7 @@ package src;
 
 
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,26 +14,26 @@ public class Fenetre extends JFrame implements ActionListener {
 	
 	// Bouton pour les questions
 	private JPanel pan = new JPanel();
-	private JButton bouton1 = new JButton("Nombre de classe");
-	private JButton bouton2 = new JButton("Nombre	de lignes de code de l�application");
-	private JButton bouton3 = new JButton("Nombre total de m�thodes de l'application");
-	private JButton bouton4 = new JButton("Nombre total de packages de l'application");
-	private JButton bouton5 = new JButton("Nombre moyen de m�thodes par classe");
-	private JButton bouton6 = new JButton("Nombre moyen de lignes de code par m�thode");
-	private JButton bouton7 = new JButton("Nombre moyen d'attributs par classe");
-	private JButton bouton8 = new JButton("Les 10% des classes qui poss�dent le plus grand nombre de m�thodes");
-	private JButton bouton9 = new JButton("Les 10% des classes qui poss�dent le plus grand nombre d'attributs");
-	private JButton bouton10 = new JButton("Les classes qui font partie en m�me temps des deux cat�gories pr�c�dentes");
-	private JButton bouton11 = new JButton("Les classes qui possèdent plus de X mét");
-	private JButton bouton12 = new JButton("Les 10% des m�thodes qui poss�dent le plus grand nombre de lignes de code (par classe)");
-	private JButton bouton13 = new JButton("Le nombre	maximal	de param�tres par rapport � toutes les m�thodes	de l�application.");
+	private JButton bouton1 = new JButton("Q1 : Nombre de classe");
+	private JButton bouton2 = new JButton("Q2 : Nombre	de lignes de code de l'application");
+	private JButton bouton3 = new JButton("Q3 : Nombre total de méthodes de l'application");
+	private JButton bouton4 = new JButton("Q4 : Nombre total de packages de l'application");
+	private JButton bouton5 = new JButton("Q5 : Nombre moyen de méthodes par classe");
+	private JButton bouton6 = new JButton("Q6 : Nombre moyen de lignes de code par méthode");
+	private JButton bouton7 = new JButton("Q7 : Nombre moyen d'attributs par classe");
+	private JButton bouton8 = new JButton("Q8 : Les 10% des classes qui possèdent le plus grand nombre de méthodes");
+	private JButton bouton9 = new JButton("Q9 : Les 10% des classes qui possèdent le plus grand nombre d'attributs");
+	private JButton bouton10 = new JButton("Q10 : Les classes qui font partie en même temps des deux cat�gories précédentes");
+	private JButton bouton11 = new JButton("Q11 : Les classes qui possèdent plus de X méthodes");
+	private JButton bouton12 = new JButton("Q12 : Les 10% des m�thodes qui possèdent le plus grand nombre delignes de code (par classe)");
+	private JButton bouton13 = new JButton("Q13 : Le nombre	maximal	de paramètres par rapport à toutes les méthodes	de l'application.");
 	
 
 	public Fenetre(ASTProcessor visit) {
 		
 		this.visit = visit;
 		this.setTitle("AST Visitor");
-		this.setSize(800,800);
+		this.setSize(700,400);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
@@ -66,6 +67,9 @@ public class Fenetre extends JFrame implements ActionListener {
 		this.setContentPane(pan);
 		this.setVisible(true);
 		
+		this.setLayout(new GridLayout(4, 4));
+	    this.setVisible(true);
+		
 	}
 
 	@Override
@@ -74,55 +78,55 @@ public class Fenetre extends JFrame implements ActionListener {
 
 		if(arg0.getSource().equals(bouton1)) {
 			res = visit.exercice1();
-			JOptionPane.showMessageDialog(pan, res);
+			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		else if (arg0.getSource().equals(bouton2)) {
 			res = visit.exercice2();
-			JOptionPane.showMessageDialog(pan, res);
+			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		else if (arg0.getSource().equals(bouton3)) {
 			res = visit.exercice3();
-			JOptionPane.showMessageDialog(pan, res);
+			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		else if (arg0.getSource().equals(bouton4)) {
 			res = visit.exercice4();
-			JOptionPane.showMessageDialog(pan, res);
+			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		else if (arg0.getSource().equals(bouton5)) {
 			res = visit.exercice5();
-			JOptionPane.showMessageDialog(pan, res);
+			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		else if (arg0.getSource().equals(bouton6)) {
 			res = visit.exercice6();
-			JOptionPane.showMessageDialog(pan, res);
+			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		else if (arg0.getSource().equals(bouton7)) {
 			res = visit.exercice7();
-			JOptionPane.showMessageDialog(pan, res);
+			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		else if (arg0.getSource().equals(bouton8)) {
 			res = visit.exercice8();
-			JOptionPane.showMessageDialog(pan, res);
+			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		else if (arg0.getSource().equals(bouton9)) {
 			res = visit.exercice9();
-			JOptionPane.showMessageDialog(pan, res);
+			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		else if (arg0.getSource().equals(bouton10)) {
 			res = visit.exercice10();
-			JOptionPane.showMessageDialog(pan, res);
+			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		else if (arg0.getSource().equals(bouton11)) {
 			res = visit.exercice11();
-			JOptionPane.showMessageDialog(pan, res);
+			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		else if (arg0.getSource().equals(bouton12)) {
 			res = visit.exercice12();
-			JOptionPane.showMessageDialog(pan, res);
+			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		else if (arg0.getSource().equals(bouton13)) {
 			res = visit.exercice13();
-			JOptionPane.showMessageDialog(pan, res);
+			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		
 	}

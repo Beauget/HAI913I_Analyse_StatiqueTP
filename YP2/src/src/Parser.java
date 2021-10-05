@@ -34,10 +34,10 @@ public class Parser {
 
 	}
 	
-	public static final String projectPath = "/home/dnspc/Desktop/M2/Evo-restru/TP2AST/HAI913I_Analyse_StatiqueTP/File_To_Analyse/";
-	public static final String projectSourcePath = projectPath;
-	//public static final String projectPath = "/home/hayaat/Desktop/Master/M1/Java/TP4/";
-	//public static final String projectSourcePath = projectPath + "/src/";
+	//public static final String projectPath = "/home/dnspc/Desktop/M2/Evo-restru/TP2AST/HAI913I_Analyse_StatiqueTP/File_To_Analyse/";
+	//public static final String projectSourcePath = projectPath;
+	public static final String projectPath = "/home/hayaat/Desktop/Master/M1/Java/TP4/";
+	public static final String projectSourcePath = projectPath + "/src/";
 	public static final String jrePath;
 	
 	static {
@@ -67,60 +67,75 @@ public class Parser {
 		
 		while(cmd != 0) {
 			System.out.println("---- Bienvenue dans notre menu pour obtenir quelques informations sur notre AST ----");
-			System.out.println("Veuillez choisir un num�ro de question pour obtenir le r�sultat");
+			System.out.println("Veuillez choisir un numéro de question pour obtenir le résultat");
 			
 			
-			System.out.println("1 - Nombre de classes de l�applicationl" );
-			System.out.println("2 - Merci de votre visite, bonne journ�e !");
-			System.out.println("3 - Nombre de classes de l�application");
-			System.out.println("4 - Nombre de lignes de code de l�application");
-			System.out.println("5 - Nombre total de m�thodes de l'application");
-			System.out.println("6 - Nombre total de packages de l'application");
-			System.out.println("7 - Nombre moyen de m�thodes par classe");
-			System.out.println("8 - Nombre moyen de lignes de code par m�thode");
-			System.out.println("9 - Nombre moyen d'attributs par classe");
-			System.out.println("10 - Les 10% des classes qui poss�dent le plus grand nombre de m�thodes.");
-			System.out.println("11 - Les 10% des classes qui poss�dent le plus grand nombre d'attributs");
-			System.out.println("12 - Les classes qui font partie en m�me temps des deux cat�gories pr�c�dentes");
-			System.out.println("13 - Les 10% des m�thodes qui poss�dent le plus grand nombre de lignes de code (par classe)");
-			System.out.println("14 - Le nombre	maximal	de param�tres par rapport � toutes les m�thodes	de l�application.");
+			System.out.println("1 - Nombre de classes de l'applicationl" );
+			System.out.println("2 - Nombre de lignes de code de l'application");
+			System.out.println("3 - Nombre total de méthodes de l'application");
+			System.out.println("4 - Nombre total de packages de l'application");
+			System.out.println("5 - Nombre moyen de méthodes par classe");
+			System.out.println("6 - Nombre moyen de lignes de code par méthode");
+			System.out.println("7 - Nombre moyen d'attributs par classe");
+			System.out.println("8 - Les 10% des classes qui possèdent le plus grand nombre de méthodes.");
+			System.out.println("9 - Les 10% des classes qui possèdent le plus grand nombre d'attributs");
+			System.out.println("10 - Les classes qui font partie en même temps des deux cat�gories précédentes");
+			System.out.println("11 - Les classes qui possèdent plus de X méthodes");
+			System.out.println("12 - Les 10% des méthodes qui possèdent le plus grand nombre de lignes de code (par classe)");
+			System.out.println("13 - Le nombre	maximal	de paramètres par rapport à toutes les méthodes	de l'application.");
+			System.out.println("14 - Toutes les réponses précédentes");
 			System.out.println("15 - Version graphique");
 			
 			
 			cmd = sc.nextInt();
 			switch(cmd) {
 			
-				case 0 : System.out.println("Merci de votre visite, bonne journ�e !");
+				case 0 : System.out.println("Merci de votre visite, bonne journée !");
 				break;
 				case 1 : System.out.println(processor.exercice1());
 				System.out.println(" ");
 				break;
-				case 3 : System.out.println("Nombre	de lignes de code de l�application");
+				case 2 : System.out.println(processor.exercice2());
+				System.out.println(" ");
 				break;
-				case 4 : System.out.println("Nombre total de m�thodes de l'application");
+				case 3 : System.out.println(processor.exercice3());
+				System.out.println(" ");
 				break;
-				case 5 : System.out.println("Nombre total de packages de l'application");
+				case 4 : System.out.println(processor.exercice4());
+				System.out.println(" ");
 				break;
-				case 6 : System.out.println("Nombre moyen de m�thodes par classe");
+				case 5 : System.out.println(processor.exercice5());
+				System.out.println(" ");
 				break;
-				case 7 : System.out.println("Nombre moyen de lignes de code par m�thode");
+				case 6 :System.out.println(processor.exercice6());
+				System.out.println(" ");
 				break;
-				case 8 : System.out.println("Nombre moyen d'attributs par classe");
+				case 7 :System.out.println(processor.exercice7());
+				System.out.println(" ");
 				break;
-				case 9 : System.out.println("Les 10% des classes qui poss�dent le plus grand nombre de m�thodes");
+				case 8 : System.out.println(processor.exercice8());
+				System.out.println(" ");
 				break;
-				case 10 : System.out.println("Les 10% des classes qui poss�dent le plus grand nombre d'attributs");
+				case 9 : System.out.println(processor.exercice9());
+				System.out.println(" ");
 				break;
-				case 11 : System.out.println("Les classes qui font partie en m�me temps des deux cat�gories pr�c�dentes");
+				case 10 : System.out.println(processor.exercice10());
+				System.out.println(" ");
 				break;
-				case 12 : System.out.println("Les 10% des m�thodes qui poss�dent le plus grand nombre de lignes de code (par classe)");
+				case 11 : System.out.println(processor.exercice11());
+				System.out.println(" ");
 				break;
-				case 13 : System.out.println("Le nombre	maximal	de param�tres par rapport � toutes les m�thodes	de l�application.");
+				case 12 : System.out.println(processor.exercice12());
+				System.out.println(" ");
 				break;
-				case 14 : System.out.println("Toutes les r�ponses pr�c�dentes");
+				case 13 : System.out.println(processor.exercice13());
+				System.out.println(" ");
+				break;
+				case 14 : processor.gigaPrint();
+				System.out.println(" ");
 				break;
 				case 15 :
-				System.out.println("La fen�tre va s'ouvrir...");
+				System.out.println("La fenètre va s'ouvrir...");
 				gestionGUI(processor);
 				int i = 1;
 				System.out.println("Appuyez sur une 0 pour revenir au menu");
@@ -131,17 +146,6 @@ public class Parser {
 				}
 			}
 		}
-		
-		
-		// END MENU
-
-	
-		
-		// TODO : GUI part 
-	
-				 
-				 
-	    // END : GUI part		 
 		
 	}
 

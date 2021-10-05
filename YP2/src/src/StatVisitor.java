@@ -28,12 +28,12 @@ public class StatVisitor extends Visitor {
 		numberOfClass();
 		
 		//EXERCICE 2
-		System.out.println("Nombre de ligne(s) de code de l’application : "+ numberOfLines());
+		System.out.println(numberOfLines());
 		
 		//EXERCICE 3
-		numberOfMethod();
+		System.out.println(numberOfMethod());
 		//EXERCICE 4
-		numberOfPackage();
+		System.out.println(numberOfPackage());
 		
 		//EXERCICE 5
 		averageOfMethod();

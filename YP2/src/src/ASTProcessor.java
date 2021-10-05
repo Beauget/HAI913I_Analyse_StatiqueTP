@@ -16,7 +16,12 @@ public class ASTProcessor {
 		this.project = p;
 		this.statVisitor= new StatVisitor(p,c);
 		this.infoVisitor= new InfoVisitor(p,c);
-	}	
+	}
+	
+	public void gigaPrint() {
+		 this.statVisitor.print();
+		 this.infoVisitor.print();
+	}
 	public Visitor getStatVisitor() {
 		return this.statVisitor;
 	}
