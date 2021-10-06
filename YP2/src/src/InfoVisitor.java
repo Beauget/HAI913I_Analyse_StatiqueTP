@@ -24,12 +24,12 @@ public class InfoVisitor extends Visitor{
 		super(project,c);
 	} 	
 	
-	public void printCodeLength() {
+	public String codeLength() {
 		int i = 0;
 		for(CompilationUnit parse :  this.project) {
 			i+= parse.getLength();
 		}
-		System.out.println("Nombre de caractères : "+ i+ "\n \n");
+		return("Nombre de caractères : "+ i+ "\n \n");
 	}
 
 	
