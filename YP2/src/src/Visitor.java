@@ -83,5 +83,21 @@ public class Visitor {
 		   String[] lines = str.split("\r\n|\r|\n");
 		   return  lines.length;
 		}
+	
+	public String printArrayString(ArrayList<String> array) {
+		String rslt="";
+		for(String s : array) {
+			rslt+=s+"\n";
+		}
+		return rslt;
+	}
+	
+	public boolean isInArrayList(ArrayList<String> array,String key) {
+		for(String s : array) {
+			if(s.equals(key))
+				return true;
+		}
+		return false;
+	}
 }
 

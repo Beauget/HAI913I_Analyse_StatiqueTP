@@ -57,8 +57,7 @@ public class Parser {
 		//System.out.println(project.toString());
 		//ASTProcessor processor = new ASTProcessor(project, "InfoVisitor");
 		ASTProcessor processor = new ASTProcessor(project,content);	
-		System.out.println(processor.exercice1());
-		
+	
 		// MENU
 		int cmd = 100;
 		Scanner sc = new Scanner(System.in);
@@ -70,7 +69,7 @@ public class Parser {
 			System.out.println("Veuillez choisir un numéro de question pour obtenir le résultat");
 			
 			
-			System.out.println("1 - Nombre de classes de l'applicationl" );
+			System.out.println("1 - Nombre de classes de l'application" );
 			System.out.println("2 - Nombre de lignes de code de l'application");
 			System.out.println("3 - Nombre total de méthodes de l'application");
 			System.out.println("4 - Nombre total de packages de l'application");
@@ -79,7 +78,7 @@ public class Parser {
 			System.out.println("7 - Nombre moyen d'attributs par classe");
 			System.out.println("8 - Les 10% des classes qui possèdent le plus grand nombre de méthodes.");
 			System.out.println("9 - Les 10% des classes qui possèdent le plus grand nombre d'attributs");
-			System.out.println("10 - Les classes qui font partie en même temps des deux cat�gories précédentes");
+			System.out.println("10 - Les classes qui font partie en même temps des deux catégories précédentes");
 			System.out.println("11 - Les classes qui possèdent plus de X méthodes");
 			System.out.println("12 - Les 10% des méthodes qui possèdent le plus grand nombre de lignes de code (par classe)");
 			System.out.println("13 - Le nombre	maximal	de paramètres par rapport à toutes les méthodes	de l'application.");

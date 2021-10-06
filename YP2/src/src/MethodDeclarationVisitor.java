@@ -10,7 +10,7 @@ public class MethodDeclarationVisitor extends ASTVisitor {
 	List<MethodDeclaration> methods = new ArrayList<MethodDeclaration>();
 	
 	//Possibilité d'ignorer des constructeurs etc
-    private boolean useExternBindings = false; //??
+    private boolean useExternBindings = false; 
     private boolean includeConstructor = true;
 	
 	public boolean visit(MethodDeclaration node) {
