@@ -51,7 +51,7 @@ public class InfoVisitor extends Visitor{
 		for(CompilationUnit parse :  this.project) {
 			i+= parse.getLength();
 		}
-		System.out.println("Nombre de caractères : "+ i);
+		System.out.println("Nombre de caractères : "+ i+ "\n \n");
 	}
 
 	
@@ -77,23 +77,30 @@ public class InfoVisitor extends Visitor{
 	}
 	
 	
-	public ArrayList<String>  top10Method(){
+	public ArrayList<Pair> top10Method(){
 		int nb = Math.floorDiv(project.size(),10);
-		ArrayList<String> rslt= new ArrayList<String>();
 		if(nb==0)
 			nb=1;
 		ArrayList<Pair> listeM = nbMethodInType();
+		ArrayList<Pair> rslt = new ArrayList<Pair>();
 		
 		//TRIE CROISSANT
 		Collections.sort(listeM);
 		
 		//Parcours decroissant
 		for(int i=listeM.size()-1; i>(listeM.size()-nb-1);i--) {
-			rslt.add(listeM.get(i).getKey());
+			rslt.add(listeM.get(i));
 		}
 		return rslt;
 	}
 	
+	public String top10MethodToString() {
+		String rslt = "";
+		for(Pair p : top10Method()){
+			rslt+="La classe "+p.getKey()+ " avec "+p.value+ " méthode(s) \n \n";
+		}
+		return rslt;
+	}
 	
 	
 	//EXERCICE 9 Les 10% des classes qui possèdent le plus grand nombre d’attributs
@@ -118,9 +125,9 @@ public class InfoVisitor extends Visitor{
 		return liste;
 	}
 	
-	public ArrayList<String> top10Var(){
+	public ArrayList<Pair> top10Var(){
 		int nb = Math.floorDiv(project.size(),10);
-		ArrayList<String> rslt= new ArrayList<String>();
+		ArrayList<Pair> rslt= new ArrayList<Pair>();
 		if(nb==0)
 			nb=1;
 		ArrayList<Pair> listeV = nbVarInType();
@@ -130,24 +137,32 @@ public class InfoVisitor extends Visitor{
 
 		//Parcours decroissant
 		for(int i=listeV.size()-1; i>(listeV.size()-nb-1);i--) {
-			rslt.add(listeV.get(i).getKey());
+			rslt.add(listeV.get(i));
 		}
 		return rslt;
 	}
 	
+	public String top10VarToString() {
+		String rslt = "";
+		for(Pair p : top10Var()){
+			rslt+="La classe "+p.getKey()+ " avec "+p.value+ " attribut(s) \n \n";
+		}
+		
+		return rslt;
+	}
 	
 	//EXERCICE 10 Les classes qui font partie en même temps des deux catégories précédentes.
-	//TODO
-	public ArrayList<String> top10MethodAndVar(){
-		ArrayList<String> rslt= new ArrayList<String>();
+	public String top10MethodAndVar(){
+		String rslt= "";
 		
-		ArrayList<String> listeM = top10Method();
-		ArrayList<String> listeV = top10Var();
+		ArrayList<Pair> listeM = top10Method();
+		ArrayList<Pair> listeV = top10Var();
 		
 		for(int i=0 ;i<listeM.size();i++) {
 			for(int j = 0; j<listeV.size();j++){
-				if(listeM.get(i).equals(listeV.get(j)))
-						rslt.add(listeM.get(i));
+				if(listeM.get(i).getKey().equals(listeV.get(j).getKey()))
+					rslt+="La classe "+listeV.get(j).getKey()+ " avec "+listeM.get(i).getValue()+ " méthodes(s) et "
+							+listeV.get(j).getValue()+ " attribut(s) \n \n";
 			}
 		}	
 		return rslt;
@@ -156,17 +171,61 @@ public class InfoVisitor extends Visitor{
 	
 	
 	//EXERCICE 11 Les classes qui possèdent plus de X méthodes (la valeur de X est donnée).
-	public ArrayList<String> classWithXMethod(int x){
-		ArrayList<String> rslt= new ArrayList<String>();		
+	public String classWithXMethod(int x){
+		ArrayList<Pair> array= new ArrayList<Pair>();		
 		ArrayList<Pair> listeM = nbMethodInType();
+		String rslt = "Les classes qui possèdent plus de "+ x +" méthode(s) : \n";
 		
 		for(int i=0 ; i<listeM.size(); i++) {
-			if(listeM.get(i).getValue()==x) {
-				rslt.add(listeM.get(i).getKey());
+			if(listeM.get(i).getValue()>=x) {
+				array.add(listeM.get(i));
+				rslt+=listeM.get(i).key +" avec "+listeM.get(i).getValue()+" methode(s) \n";
 			}
 		}
-		return rslt;
+		return rslt +"\n";
 	}
 	
+	//EXERCICE 12 Les 10% des méthodes qui possèdent le plus grand nombre de lignes de code (par classe).
+	public String top10MethodLigneParClasse() {
+		String rslt = "";
+		ArrayList<ArrayList<Pair>> listeMethode = new ArrayList<ArrayList<Pair>>();
+		ArrayList<String> listeClasse = new ArrayList<String>();
+		
+		int index = 0;
+		for(int i=0; i<getProject().size(); i++) {
+			for (TypeDeclaration type : this.getTypes(i)) {
+				
+				listeClasse.add(type.getName().toString());
+				listeMethode.add(new ArrayList<Pair>());
+
+
+				MethodDeclarationVisitor visitor2 = new MethodDeclarationVisitor();
+				type.accept(visitor2);
+				for(MethodDeclaration method : visitor2.getMethods()){
+					listeMethode.get(index).add(new Pair (method.getName().toString(), countLines(method.toString() ) ));
+					}
+				index++;
+				}
+			}
+		
+		for(int i=0; i<listeMethode.size();i++) {
+				//TRIE CROISSANT
+				Collections.sort(listeMethode.get(i));
+				int nb = Math.floorDiv(listeMethode.get(i).size(),10);
+				if(nb==0)
+					nb=1;
+				rslt+= "Pour la classe : "+listeClasse.get(i)+ "\n";
+				//Parcours decroissant
+				if(listeMethode.get(i).size()>1) {
+				for(int j=listeMethode.get(i).size()-1; j>(listeMethode.get(i).size()-nb-1);j--) {
+					rslt+= "La méthode : "+ listeMethode.get(i).get(j).getKey() +" avec " + listeMethode.get(i).get(j).getValue() +" ligne(s) \n";
+				}}
+				else {
+					rslt+="Pas de méthode \n";
+				}
+		}
+		
+		return rslt + "\n";
+	}
 }
 

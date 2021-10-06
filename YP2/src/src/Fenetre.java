@@ -117,7 +117,7 @@ public class Fenetre extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		else if (arg0.getSource().equals(bouton11)) {
-			res = visit.exercice11();
+			res = visit.exercice11(4);
 			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		else if (arg0.getSource().equals(bouton12)) {

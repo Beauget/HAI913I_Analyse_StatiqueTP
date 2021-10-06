@@ -121,7 +121,7 @@ public class Parser {
 				case 10 : System.out.println(processor.exercice10());
 				System.out.println(" ");
 				break;
-				case 11 : System.out.println(processor.exercice11());
+				case 11 : System.out.println(processor.exercice11(3));
 				System.out.println(" ");
 				break;
 				case 12 : System.out.println(processor.exercice12());
@@ -130,7 +130,7 @@ public class Parser {
 				case 13 : System.out.println(processor.exercice13());
 				System.out.println(" ");
 				break;
-				case 14 : processor.gigaPrint();
+				case 14 : System.out.println(processor.printAll());
 				System.out.println(" ");
 				break;
 				case 15 :

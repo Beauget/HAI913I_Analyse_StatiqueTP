@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
@@ -55,10 +56,15 @@ public class StatVisitor extends Visitor {
 		for(int i=0; i<getProject().size(); i++) {
 			for (TypeDeclaration type : this.getTypes(i)) {
 				listeClass.add(type.getName().toString());
+				AnonymousClassDeclarationVisitor visitor2 = new AnonymousClassDeclarationVisitor();
+				type.accept(visitor2);
+				for(AnonymousClassDeclaration anonymous : visitor2.getAnonymous()) {
+					listeClass.add("Classe anonyme");
+				}
 			}
 		}
 		return(printArrayString(listeClass)+"Nombre de classe(s) dans l'application : "
-				+ listeClass.size());
+				+ listeClass.size()+ "\n \n");
 	}
 	
 	//EXERCICE 2 Nombre de lignes de code de l’application.
@@ -67,7 +73,7 @@ public class StatVisitor extends Visitor {
 		for(String s : this.getContent()){
 			rslt+= countLines(s);
 		}		
-		return ("Nombre de ligne(s) de code de l’application :"+rslt);
+		return ("Nombre de ligne(s) de code de l’application :"+rslt+ "\n \n");
 	}
 	
 	//EXERCICE 3 Nombre total de méthodes de l’application.
@@ -78,7 +84,7 @@ public class StatVisitor extends Visitor {
 				listeMethod.add(method.getName().toString());
 			}
 		}
-		return(printArrayString(listeMethod)+"\n"+"Nombre de méthode(s) dans l'application : "+ listeMethod.size());
+		return(printArrayString(listeMethod)+"\n"+"Nombre de méthode(s) dans l'application : "+ listeMethod.size()+ "\n \n");
 	}
 	
 	//EXERCICE 4 Nombre total de packages de l’application.
@@ -91,7 +97,7 @@ public class StatVisitor extends Visitor {
 					packages.add(pack.getName().toString());
 			}
 		}
-		return(printArrayString(packages)+"\n"+"Nombre total de package (different) : " + packages.size());
+		return(printArrayString(packages)+"\n"+"Nombre total de package (different) : " + packages.size()+ "\n \n");
 	}
 	
 	//EXERCICE 5 Nombre moyen de méthodes par classe.
@@ -102,16 +108,21 @@ public class StatVisitor extends Visitor {
 		for(int i=0; i<getProject().size(); i++) {
 			for (TypeDeclaration type : this.getTypes(i)) {
 				nClass++;
-				MethodDeclarationVisitor visitor2 = new MethodDeclarationVisitor();
+				AnonymousClassDeclarationVisitor visitor2 = new AnonymousClassDeclarationVisitor();
 				type.accept(visitor2);
-				for(MethodDeclaration method : visitor2.getMethods()){
+				for(AnonymousClassDeclaration anonymous : visitor2.getAnonymous()) {
+					nClass++;
+				}
+				MethodDeclarationVisitor visitor3 = new MethodDeclarationVisitor();
+				type.accept(visitor3);
+				for(MethodDeclaration method : visitor3.getMethods()){
 					nMethod++;
 				}
 			}
 		}
 		return("Nombre de classe(s) : "+nClass+"\n"
 		+"Nombre de méthode(s) : "+nMethod+"\n"		
-		+"Nombre moyen de methodes par classe : " + (float)nMethod/(float)nClass);
+		+"Nombre moyen de methodes par classe : " + (float)nMethod/(float)nClass+ "\n \n");
 	}	
 	
 	//EXERCICE 6 Nombre moyen de lignes de code par méthode.
@@ -133,7 +144,7 @@ public class StatVisitor extends Visitor {
 		}
 		return("Nombre de methode(s) : "+nMethod+"\n"
 				+"Nombre de ligne(s) (total des methodes) : "+nLigneMethodTotal+"\n"	
-				+"Nombre moyen de lignes de code par méthode "+ (float)nLigneMethodTotal/ (float)nMethod);
+				+"Nombre moyen de lignes de code par méthode "+ (float)nLigneMethodTotal/ (float)nMethod + "\n \n");
 	}
 	
 	
@@ -146,9 +157,14 @@ public class StatVisitor extends Visitor {
 		for(int i=0; i<getProject().size(); i++) {
 			for (TypeDeclaration type : this.getTypes(i)) {
 				nClass++;
-				VariableDeclarationFragmentVisitor visitor2 = new VariableDeclarationFragmentVisitor();
+				AnonymousClassDeclarationVisitor visitor2 = new AnonymousClassDeclarationVisitor();
 				type.accept(visitor2);
-				for(VariableDeclarationFragment var : visitor2.getVariables()){
+				for(AnonymousClassDeclaration anonymous : visitor2.getAnonymous()) {
+					nClass++;
+				}				
+				VariableDeclarationFragmentVisitor visitor3 = new VariableDeclarationFragmentVisitor();
+				type.accept(visitor3);
+				for(VariableDeclarationFragment var : visitor3.getVariables()){
 					nVar++;
 				}
 			}
@@ -156,15 +172,39 @@ public class StatVisitor extends Visitor {
 		res = (float)nVar/(float)nClass;
 		return("Nombre de classe(s) : "+nClass+"\n"
 				+"Nombre d'attribut(s) : "+nVar+"\n"	
-				+"Nombre moyen d'attributs par classe : " + res);
+				+"Nombre moyen d'attributs par classe : " + res +"\n \n");
 	}
-	
-	
-	//EXERCICE 12 Les 10% des méthodes qui possèdent le plus grand nombre de lignes de code (par classe).
 	
 	
 	
 	//EXERCICE 13 Le nombre maximal de paramètres par rapport à toutes les méthodes de l’application.
+	public String nbMaxParamMethod() {
+		String rslt = "";
+		ArrayList<Pair> liste = new ArrayList<Pair>();
+		for(int i=0; i<getProject().size(); i++) {
+			for (TypeDeclaration type : this.getTypes(i)) {
+				MethodDeclarationVisitor visitor2 = new MethodDeclarationVisitor();
+				type.accept(visitor2);
+				for(MethodDeclaration method : visitor2.getMethods()){
+					int nbVar = 0;
+					VariableDeclarationFragmentVisitor visitor3 = new VariableDeclarationFragmentVisitor();
+					method.accept(visitor3);
+					for(VariableDeclarationFragment var : visitor3.getVariables()){
+						nbVar++;
+					}
+					liste.add(new Pair(method.getName().toString(),nbVar));
+				}				
+			}
+		}
+		//TRIE CROISSANT
+		Collections.sort(liste);
+		int size = liste.size();
+		rslt = ("La méthode : "+liste.get(size-1).getKey()+" avec " + liste.get(size-1).getValue()+ " paramètre(s) \n");
+		for(int i =size-2 ;liste.get(i).getValue()==liste.get(size-1).getValue(); i-- ) {
+			rslt += "En égalité avec la méthode : " + liste.get(i).getKey()+" avec " + liste.get(size-1).getValue()+ " paramètre(s) \n";
+		}
+		return rslt+"\n";
+	}
 	
 
 }

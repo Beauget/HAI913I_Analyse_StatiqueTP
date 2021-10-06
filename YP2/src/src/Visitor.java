@@ -14,8 +14,8 @@ public class Visitor {
 	ArrayList<CompilationUnit> project;
 	ArrayList<String> content;
 	ArrayList<TypeDeclarationVisitor> visitorTypes = new ArrayList<TypeDeclarationVisitor>();
-	ArrayList<AnonymousClassDeclarationVisitor> visitorClassesAnonymes = new ArrayList<AnonymousClassDeclarationVisitor>();
-	ArrayList<VariableDeclarationFragmentVisitor> visitorVariables = new ArrayList<VariableDeclarationFragmentVisitor>();
+	//ArrayList<AnonymousClassDeclarationVisitor> visitorClassesAnonymes = new ArrayList<AnonymousClassDeclarationVisitor>();
+	//ArrayList<VariableDeclarationFragmentVisitor> visitorVariables = new ArrayList<VariableDeclarationFragmentVisitor>();
 	ArrayList<MethodDeclarationVisitor> visitorMethodes = new ArrayList<MethodDeclarationVisitor>();
 
 	ArrayList<PackageDeclarationVisitor> visitorPackages = new ArrayList<PackageDeclarationVisitor>();
@@ -29,14 +29,14 @@ public class Visitor {
 			
 			visitorTypes.add(new TypeDeclarationVisitor());
 			visitorMethodes.add(new MethodDeclarationVisitor());
-			visitorClassesAnonymes.add(new AnonymousClassDeclarationVisitor());
-			visitorVariables.add(new VariableDeclarationFragmentVisitor());
+			//visitorClassesAnonymes.add(new AnonymousClassDeclarationVisitor());
+			//visitorVariables.add(new VariableDeclarationFragmentVisitor());
 			visitorPackages.add(new PackageDeclarationVisitor());
 			
 			parse.accept(visitorTypes.get(i));
 			parse.accept(visitorMethodes.get(i));
-			parse.accept(visitorClassesAnonymes.get(i));	
-			parse.accept(visitorVariables.get(i));
+			//parse.accept(visitorClassesAnonymes.get(i));	
+			//parse.accept(visitorVariables.get(i));
 			parse.accept(visitorPackages.get(i));
 		}
 	} 
@@ -48,14 +48,14 @@ public class Visitor {
 	public List<MethodDeclaration> getMethods(int i) {
 		return visitorMethodes.get(i).getMethods();
 	}
-
+/*
 	public List<AnonymousClassDeclaration> getClassesAnonymes(int i) {
 		return visitorClassesAnonymes.get(i).getAnonymous();
 	}
 	
 	public List<VariableDeclarationFragment> getVariables(int i) {
 		return visitorVariables.get(i).getVariables();
-	}
+	}*/
 	
 	public List<PackageDeclaration> getPackages(int i) {
 		return visitorPackages.get(i).getPackages();
