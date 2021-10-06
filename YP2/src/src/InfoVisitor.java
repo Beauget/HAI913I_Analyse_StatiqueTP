@@ -23,28 +23,6 @@ public class InfoVisitor extends Visitor{
 	public InfoVisitor(ArrayList<CompilationUnit> project,ArrayList<String> c) {
 		super(project,c);
 	} 	
-	public void print() {
-
-		//EXERCICE 8
-		System.out.println("Les 10% des classes qui possèdent le plus grand nombre de méthodes.");
-		System.out.println(top10Method().toString());
-		
-		//EXERCICE 9
-		System.out.println("Les 10% des classes qui possèdent le plus grand nombre d’attributs");
-		System.out.println(top10Var().toString());
-		
-		//EXERCICE 10
-		System.out.println("Les classes qui font partie en même temps des deux");
-		System.out.println(top10MethodAndVar().toString());
-		
-		//EXERCICE 11
-		System.out.println("Les classes qui possèdent plus de X méthodes");
-		System.out.println(classWithXMethod(4).toString());
-		
-		//EXERCICE 12
-		System.out.println("Les 10% des méthodes qui possèdent le plus grand nombre de lignes de code (par classe).");
-
-	}
 	
 	public void printCodeLength() {
 		int i = 0;

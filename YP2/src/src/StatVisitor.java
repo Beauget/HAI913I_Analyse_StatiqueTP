@@ -23,33 +23,6 @@ public class StatVisitor extends Visitor {
 		super(project,c);
 	}
 	
-	public void print() {
-		// TODO
-		//EXERCICE 1
-		numberOfClass();
-		
-		//EXERCICE 2
-		System.out.println(numberOfLines());
-		
-		//EXERCICE 3
-		System.out.println(numberOfMethod());
-		//EXERCICE 4
-		System.out.println(numberOfPackage());
-		
-		//EXERCICE 5
-		averageOfMethod();
-
-		//EXERCICE 6 Nombre moyen de lignes de code par méthode.
-		averageLineOfMethod();
-		
-		//EXERCICE 7
-		averageOfVariableByClass();
-		
-		
-		//EXERCICE 13
-		System.out.println("Le nombre maximal de paramètres par rapport à toutes les méthodes de l’application.");
-		
-	}
 	//EXERCICE 1 Nombre de classes de l’application.
 	public String numberOfClass(){
 		ArrayList<String> listeClass = new ArrayList<String>();
