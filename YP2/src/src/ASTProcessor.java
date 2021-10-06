@@ -7,13 +7,11 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import src.Visitor;
 
 public class ASTProcessor {
-	ArrayList<CompilationUnit> project;
 	ArrayList<String> content;
 	StatVisitor statVisitor;
 	InfoVisitor infoVisitor;
 	
 	public ASTProcessor(ArrayList<CompilationUnit> p,ArrayList<String> c) {
-		this.project = p;
 		this.statVisitor= new StatVisitor(p,c);
 		this.infoVisitor= new InfoVisitor(p,c);
 	}
