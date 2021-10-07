@@ -19,6 +19,8 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.MethodInvocation;
+
 import javax.swing.JFrame;
 
 //import step2.ASTProcessor;
@@ -26,7 +28,7 @@ import javax.swing.JFrame;
 
 
 
-public class Parser {
+public class Main {
 	
 	static void gestionGUI(ASTProcessor visit) {
 		
@@ -40,6 +42,7 @@ public class Parser {
 	public static final String projectSourcePath = projectPath + "/src/";
 	public static final String jrePath;
 	
+
 	static {
 		jrePath = System.getProperty("java.home");
 	}
@@ -54,8 +57,6 @@ public class Parser {
 			CompilationUnit parse = parse(content.get(i).toCharArray());
 			project.add(parse);
 		}
-		//System.out.println(project.toString());
-		//ASTProcessor processor = new ASTProcessor(project, "InfoVisitor");
 		ASTProcessor processor = new ASTProcessor(project,content);	
 	
 		// MENU
@@ -155,7 +156,6 @@ public class Parser {
 			if (fileEntry.isDirectory()) {
 				javaFiles.addAll(listJavaFilesForFolder(fileEntry));
 			} else if (fileEntry.getName().contains(".java")) {
-				// System.out.println(fileEntry.getName());
 				javaFiles.add(fileEntry);
 			}
 		}
