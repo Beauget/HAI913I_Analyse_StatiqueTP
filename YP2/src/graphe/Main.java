@@ -26,10 +26,10 @@ import src.MethodDeclarationVisitor;
 
 public class Main {
 	
-	//public static final String projectPath = "/home/dnspc/Desktop/M2/Evo-restru/TP2AST/HAI913I_Analyse_StatiqueTP/File_To_Analyse/";
-	//public static final String projectSourcePath = projectPath;
-	public static final String projectPath = "/home/hayaat/Desktop/Master/M2/Git/HAI913I_Analyse_StatiqueTP/File_To_Analyse";
-	public static final String projectSourcePath = projectPath + "";
+	public static final String projectPath = "/home/dnspc/Desktop/M2/Evo-restru/TP2AST/HAI913I_Analyse_StatiqueTP/File_To_Analyse/";
+	public static final String projectSourcePath = projectPath;
+	//public static final String projectPath = "/home/hayaat/Desktop/Master/M2/Git/HAI913I_Analyse_StatiqueTP/File_To_Analyse";
+	//public static final String projectSourcePath = projectPath + "";
 	public static final String jrePath;
 	
 

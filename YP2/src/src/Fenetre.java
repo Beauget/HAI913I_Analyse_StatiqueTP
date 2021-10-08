@@ -2,6 +2,7 @@ package src;
 
 
 
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +16,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	// Bouton pour les questions
 	private JPanel pan = new JPanel();
 	private JButton bouton1 = new JButton("Q1 : Nombre de classe");
-	private JButton bouton2 = new JButton("Q2 : Nombre	de lignes de code de l'application");
+	private JButton bouton2 = new JButton("Q2 : Nombre de lignes de code de l'application");
 	private JButton bouton3 = new JButton("Q3 : Nombre total de méthodes de l'application");
 	private JButton bouton4 = new JButton("Q4 : Nombre total de packages de l'application");
 	private JButton bouton5 = new JButton("Q5 : Nombre moyen de méthodes par classe");
@@ -25,15 +26,14 @@ public class Fenetre extends JFrame implements ActionListener {
 	private JButton bouton9 = new JButton("Q9 : Les 10% des classes qui possèdent le plus grand nombre d'attributs");
 	private JButton bouton10 = new JButton("Q10 : Les classes qui font partie en même temps des deux cat�gories précédentes");
 	private JButton bouton11 = new JButton("Q11 : Les classes qui possèdent plus de X méthodes");
-	private JButton bouton12 = new JButton("Q12 : Les 10% des m�thodes qui possèdent le plus grand nombre delignes de code (par classe)");
+	private JButton bouton12 = new JButton("Q12 : Les 10% des méthodes qui possèdent le plus grand nombre delignes de code (par classe)");
 	private JButton bouton13 = new JButton("Q13 : Le nombre	maximal	de paramètres par rapport à toutes les méthodes	de l'application.");
-	
 
 	public Fenetre(ASTProcessor visit) {
 		
 		this.visit = visit;
 		this.setTitle("AST Visitor");
-		this.setSize(700,400);
+		this.setSize(800,500);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
@@ -63,11 +63,13 @@ public class Fenetre extends JFrame implements ActionListener {
 		this.bouton11.addActionListener(this);
 		pan.add(bouton12);
 		this.bouton12.addActionListener(this);
+		pan.add(bouton13);
+		this.bouton13.addActionListener(this);
 		
 		this.setContentPane(pan);
 		this.setVisible(true);
 		
-		this.setLayout(new GridLayout(4, 4));
+		this.setLayout(new GridLayout(5, 5));
 	    this.setVisible(true);
 		
 	}
@@ -117,7 +119,9 @@ public class Fenetre extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		else if (arg0.getSource().equals(bouton11)) {
-			res = visit.exercice11(4);
+			String val = JOptionPane.showInputDialog("Nombre de méthodes ?");
+			int valInt = Integer.parseInt(val);
+			res = visit.exercice11(valInt);
 			JOptionPane.showMessageDialog(pan, res,"Résultat", JOptionPane.CLOSED_OPTION);
 		}
 		else if (arg0.getSource().equals(bouton12)) {
