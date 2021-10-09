@@ -48,7 +48,6 @@ public class Main {
 	static {
 		jrePath = System.getProperty("java.home");
 	}
-
 	public static void main(String[] args) throws IOException {
 		
 	
@@ -106,7 +105,7 @@ public class Main {
 							System.out.println("11 - Les classes qui possèdent plus de X méthodes");
 							System.out.println("12 - Les 10% des méthodes qui possèdent le plus grand nombre de lignes de code (par classe)");
 							System.out.println("13 - Le nombre	maximal	de paramètres par rapport à toutes les méthodes	de l'application.");
-							System.out.println("14 - Toutes les réponses précédentes");
+							System.out.println("14 - Toutes les réponses avec X = 4 pour la question 11");
 							System.out.println("15 - Version graphique");
 							
 							
