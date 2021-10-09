@@ -24,7 +24,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	private JButton bouton7 = new JButton("Q7 : Nombre moyen d'attributs par classe");
 	private JButton bouton8 = new JButton("Q8 : Les 10% des classes qui possèdent le plus grand nombre de méthodes");
 	private JButton bouton9 = new JButton("Q9 : Les 10% des classes qui possèdent le plus grand nombre d'attributs");
-	private JButton bouton10 = new JButton("Q10 : Les classes qui font partie en même temps des deux cat�gories précédentes");
+	private JButton bouton10 = new JButton("Q10 : Les classes qui font partie en même temps des deux catégories précédentes");
 	private JButton bouton11 = new JButton("Q11 : Les classes qui possèdent plus de X méthodes");
 	private JButton bouton12 = new JButton("Q12 : Les 10% des méthodes qui possèdent le plus grand nombre delignes de code (par classe)");
 	private JButton bouton13 = new JButton("Q13 : Le nombre	maximal	de paramètres par rapport à toutes les méthodes	de l'application.");

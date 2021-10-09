@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.apache.commons.io.FileUtils;
 import org.eclipse.core.internal.utils.FileUtil;
@@ -39,19 +40,61 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 
-		// read java files
-		final File folder = new File(projectSourcePath);
-		// read java files
-		String content = javaFileContent("mainExemple");
-		
-		//get and create
-		CompilationUnit project ;		
-		project = parse(content.toCharArray());
-		ASTProcessor processor = new ASTProcessor(project);
-		
-		//call
-		System.out.println(processor.toString());
 		//processor.fct();
+		
+		// MENU
+				int cmd = 100;
+				Scanner sc = new Scanner(System.in);
+												
+				while(cmd != 0) {
+					System.out.println("---- Bienvenue dans notre menu pour obtenir quelques informations sur une AST ----");
+					System.out.println("Veuillez choisir une option");
+					
+					System.out.println("0 - Quitter" );
+					System.out.println("1 - Démarrer" );
+					
+					cmd = sc.nextInt();
+					switch(cmd) {
+					
+						case 0 : System.out.println("Merci de votre visite, bonne journée !");
+						break;
+						case 1 : 
+						String str="";
+						while(!str.equals("Quitter")) {
+							System.out.println("Veuillez donner le chemin vers l'application ou écrire Quitter :");
+							Scanner sc2 = new Scanner(System.in);
+							str = sc2.nextLine();
+							// read java files
+							final File folder = new File(str);
+							if(folder.exists()) {
+								System.out.println("Veuillez donner le nom du fichier (sans .java) ou écrire Quitter : ");
+								Scanner sc3 = new Scanner(System.in);
+								str = sc3.nextLine();
+								//read java 
+								String content = javaFileContent(str);
+								if(content.isEmpty() && !str.equals("Quitter")) {
+									System.out.println(str+".java n'existe pas");
+								}
+								else if (!str.equals("Quitter")) {		
+									System.out.println(str+".java : \n");
+									//get and create
+									CompilationUnit project ;		
+									project = parse(content.toCharArray());
+									ASTProcessor processor = new ASTProcessor(project);								
+									//call
+									System.out.println(processor.toString());								
+								}
+							}
+							else if(!folder.exists() && !str.equals("Quitter") ) {
+								System.out.println("Ce chemin n'existe pas");
+							}
+						}
+						System.out.println(" ");
+						break;
+						default:
+						break;
+					}
+				}
 	}
 
 	// read all java files from specific folder
