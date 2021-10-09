@@ -61,7 +61,7 @@ public class Main {
 						case 1 : 
 						String str="";
 						while(!str.equals("Quitter")) {
-							System.out.println("Veuillez donner le chemin vers l'application ou écrire Quitter :");
+							System.out.println("Veuillez donner le chemin vers les .java de l'application (avec /src/) ou écrire Quitter :");
 							Scanner sc2 = new Scanner(System.in);
 							str = sc2.nextLine();
 							// read java files
