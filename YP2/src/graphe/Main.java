@@ -26,10 +26,10 @@ import src.MethodDeclarationVisitor;
 
 public class Main {
 	
-	public static final String projectPath = "/home/dnspc/Desktop/M2/Evo-restru/TP2AST/HAI913I_Analyse_StatiqueTP/File_To_Analyse/";
-	public static final String projectSourcePath = projectPath;
-	//public static final String projectPath = "/home/hayaat/Desktop/Master/M2/Git/HAI913I_Analyse_StatiqueTP/File_To_Analyse";
-	//public static final String projectSourcePath = projectPath + "";
+	//public static final String projectPath = "/home/dnspc/Desktop/M2/Evo-restru/TP2AST/HAI913I_Analyse_StatiqueTP/File_To_Analyse/";
+	//public static final String projectSourcePath = projectPath;
+	public static final String projectPath = "/home/hayaat/Desktop/Master/M2/Git/HAI913I_Analyse_StatiqueTP/File_To_Analyse/";
+	public static final String projectSourcePath = projectPath + "";
 	public static final String jrePath;
 	
 
@@ -41,50 +41,17 @@ public class Main {
 
 		// read java files
 		final File folder = new File(projectSourcePath);
-		ArrayList<File> javaFiles = listJavaFilesForFolder2(folder);
 		// read java files
-		ArrayList<String> content = listJavaFilesForProject();
-		ArrayList<CompilationUnit> project = new ArrayList<CompilationUnit>();
+		String content = javaFileContent("mainExemple");
 		
-		for(int i=0; i<content.size();i++) {
-			CompilationUnit parse = parse(content.get(i).toCharArray());
-			project.add(parse);
-		}
-		ASTProcessor processor = new ASTProcessor(project,content);
-		processor.fct();
-
-		//
-		//for (File fileEntry : javaFiles) {
-			//String content = FileUtils.readFileToString(fileEntry);
-			// System.out.println(content);
-
-			//CompilationUnit parse = parse(content.toCharArray());
-
-			// print methods info
-			//printMethodInfo(parse);
-
-			// print variables info
-			//printVariableInfo(parse);
-			
-			//print method invocations
-			//printMethodInvocationInfo(parse);
-
-		//}
-	}
-
-	// read all java files from specific folder
-	public static ArrayList<File> listJavaFilesForFolder2(final File folder) {
-		ArrayList<File> javaFiles = new ArrayList<File>();
-		for (File fileEntry : folder.listFiles()) {
-			if (fileEntry.isDirectory()) {
-				javaFiles.addAll(listJavaFilesForFolder2(fileEntry));
-			} else if (fileEntry.getName().contains(".java")) {
-				// System.out.println(fileEntry.getName());
-				javaFiles.add(fileEntry);
-			}
-		}
-
-		return javaFiles;
+		//get and create
+		CompilationUnit project ;		
+		project = parse(content.toCharArray());
+		ASTProcessor processor = new ASTProcessor(project);
+		
+		//call
+		System.out.println(processor.toString());
+		//processor.fct();
 	}
 
 	// read all java files from specific folder
@@ -92,31 +59,39 @@ public class Main {
 		ArrayList<File> javaFiles = new ArrayList<File>();
 		for (File fileEntry : folder.listFiles()) {
 			if (fileEntry.isDirectory()) {
-				javaFiles.addAll(listJavaFilesForFolder2(fileEntry));
+				javaFiles.addAll(listJavaFilesForFolder(fileEntry));
 			} else if (fileEntry.getName().contains(".java")) {
 				javaFiles.add(fileEntry);
 			}
 		}
-
 		return javaFiles;
 	}
 	
-		//
-	public static ArrayList<String>  listJavaFilesForProject() throws IOException{
+	public static ArrayList<File> listJavaFilesByName(final File folder, String name) {
+		ArrayList<File> javaFiles = new ArrayList<File>();
+		for (File fileEntry : folder.listFiles()) {
+			if (fileEntry.isDirectory()) {
+				javaFiles.addAll(listJavaFilesForFolder(fileEntry));
+			} else if (fileEntry.getName().contains(".java")) {
+				if(fileEntry.getName().toString().equals(name+".java"))
+				javaFiles.add(fileEntry);
+			}
+		}
+		return javaFiles;
+	}
+
+	public static String  javaFileContent(String name) throws IOException{
 		ArrayList<CompilationUnit> project = new ArrayList<CompilationUnit>();
 		// read java files
 		final File folder = new File(projectSourcePath);
-		ArrayList<File> javaFiles = listJavaFilesForFolder2(folder);
+		ArrayList<File> javaFiles = listJavaFilesByName(folder,name);
 		ArrayList<String> c = new ArrayList<String>();
 
-		//
 		for (File fileEntry : javaFiles) {
-			String content = FileUtils.readFileToString(fileEntry);
-			// System.out.println(content);
-			
-			c.add(content);
+			String content = FileUtils.readFileToString(fileEntry);			
+			return content;
 		}
-		return c;
+		return "";
 	}
 
 	// create AST

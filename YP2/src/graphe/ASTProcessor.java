@@ -13,83 +13,48 @@ import src.StatVisitor;
 import src.VariableDeclarationFragmentVisitor;
 
 public class ASTProcessor {
-	ArrayList<String> content = new ArrayList<String>();
-	ArrayList<CompilationUnit> compilationUnit = new ArrayList<CompilationUnit>();
+	CompilationUnit compilationUnit;
+	ArrayList<Method> listMethods = new ArrayList<Method>();
 	
-	public ASTProcessor(ArrayList<CompilationUnit> compil,ArrayList<String> c) {
-		this.content = c;
-		this.compilationUnit=compil;
+	public ASTProcessor(CompilationUnit compilation) {
+		this.compilationUnit=compilation;
+		methodsWithCalls(compilation);
 	}
 	
-	// navigate method information
-	public static void printMethodInfo(CompilationUnit parse) {
-		MethodDeclarationVisitor visitor = new MethodDeclarationVisitor();
-		parse.accept(visitor);
-
-		for (MethodDeclaration method : visitor.getMethods()) {
-			System.out.println("Method name: " + method.getName()
-					+ " Return type: " + method.getReturnType2());
+	public String toString() {
+		String rslt = "";	
+		for(Method method : listMethods){
+			rslt+=method.toString()+"\n";			
 		}
-
+		return rslt;
 	}
 	
-	public void fct() {
-		Composite composite = new Composite("racine","racine");
-		for (CompilationUnit c : this.compilationUnit) {
-			composite.add(printVariableInfo(c));
-		}
-		composite.display();
-	}
-
-	// navigate variables inside method
-	public static Composant printVariableInfo(CompilationUnit parse) {
-		Composant c = new Composant("","");
+	public void methodsWithCalls(CompilationUnit parse) {
+		//index of main methods inside listMethodsCalls
+		int i = 0;
+		//create visitor to get main method
 		MethodDeclarationVisitor visitor1 = new MethodDeclarationVisitor();
 		parse.accept(visitor1);
 		for (MethodDeclaration method : visitor1.getMethods()) {
-			
-			ArrayList<String> calls = new ArrayList<String>();
-			Composant composant = new Composant("Method", method.getName().toString(),calls);
-			
+			//get invocations
 			MethodInvocationVisitor visitor2 = new MethodInvocationVisitor();
 			method.accept(visitor2);
-			
-			for (MethodInvocation methodInvocation : visitor2.getMethods()) {
-				//System.out.println("method " + method.getName() + " invoc method "
-						//+ methodInvocation.getName());
-				composant.addCall(methodInvocation.getName().toString());
+			//append method
+			listMethods.add(new Method(method.getName().toString(), getMethodsCalls(visitor2)));
+			//increment to next main method
+			i++;
 			}
-			return composant;
 		}
-		return c;
-	}
 	
-	// navigate method invocations inside method
-		public static void printMethodInvocationInfo(CompilationUnit parse) {
-
-			MethodDeclarationVisitor visitor1 = new MethodDeclarationVisitor();
-			parse.accept(visitor1);
-			for (MethodDeclaration method : visitor1.getMethods()) {
-
-				MethodInvocationVisitor visitor2 = new MethodInvocationVisitor();
-				method.accept(visitor2);
-
-				for (MethodInvocation methodInvocation : visitor2.getMethods()) {
-					System.out.println("method " + method.getName() + " invoc method "
-							+ methodInvocation.getName());
-				}
-				
-				VariableDeclarationFragmentVisitor visitor3 = new VariableDeclarationFragmentVisitor();
-				method.accept(visitor2);
-
-				for (VariableDeclarationFragment variableDeclarationFragment : visitor3
-						.getVariables()) {
-					System.out.println("variable name: "
-							+ variableDeclarationFragment.getName()
-							+ " variable Initializer: "
-							+ variableDeclarationFragment.getInitializer());
-				}
-
+	//Get all method call in a method
+	public ArrayList<String> getMethodsCalls(MethodInvocationVisitor methodInvocationvisitor) {
+		ArrayList<String> listMethodInvocation = new ArrayList<String>();
+		for (MethodInvocation methodInvocation : methodInvocationvisitor.getMethods()) {
+			//if the method is called multiple times, only get the first call
+			if(!listMethodInvocation.contains(methodInvocation.getName().toString())) {
+				listMethodInvocation.add(methodInvocation.getName().toString());
+				}		
 			}
-		}
+		return listMethodInvocation;
+	}
 }
