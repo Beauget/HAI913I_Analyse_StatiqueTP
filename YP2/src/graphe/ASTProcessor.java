@@ -18,7 +18,8 @@ public class ASTProcessor {
 	
 	public ASTProcessor(CompilationUnit compilation) {
 		this.compilationUnit=compilation;
-		methodsWithCalls(compilation);
+		methodsAndCalls(compilation);
+		addEntries();
 	}
 	
 	public String toString() {
@@ -29,7 +30,7 @@ public class ASTProcessor {
 		return rslt;
 	}
 	
-	public void methodsWithCalls(CompilationUnit parse) {
+	public void methodsAndCalls(CompilationUnit parse) {
 		//index of main methods inside listMethodsCalls
 		int i = 0;
 		//create visitor to get main method
@@ -45,6 +46,14 @@ public class ASTProcessor {
 			i++;
 			}
 		}
+	public void addEntries(){
+		for(int i=0; i<this.listMethods.size();i++) {
+			for(int j=0; j<this.listMethods.size();j++) {
+				if(i!=j)
+					this.listMethods.get(i).isEntryThenAdd(this.listMethods.get(j));
+			}
+		}
+	}
 	
 	//Get all method call in a method
 	public ArrayList<String> getMethodsCalls(MethodInvocationVisitor methodInvocationvisitor) {
